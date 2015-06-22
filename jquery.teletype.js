@@ -74,9 +74,26 @@
 					current.position++;
 					letter = '<br />';
 				}
+				if ( nextChar == 'h' ) {
+					current.position++;
+					var tstart = current.position + 1;
+					var tend = current.string.substr( tstart ).search( /[^0-9]/ );
+					if ( tend == -1 ) {
+						tend = current.string.length;
+					}
+					var tvalue = current.string.substr( tstart, tend );
+					current.position+=parseInt(tend);
+
+					if ( $.isNumeric( tvalue ) ) {
+						var tstr=current.string.substr(parseInt(current.position+1),parseInt(tvalue));
+					}
+					letter =tstr;
+					current.position+=parseInt(tvalue);
+				}
 			}
 			if ( letter !== undefined ) {
 				output.html( output.html() + letter );
+				// console.log(letter);
 			}
 			current.position++;
 			if ( current.position < current.string.length ) {
